@@ -3,6 +3,18 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+
+#ifdef __linux__
+	#ifndef ENTER
+		#define ENTER 10
+	#endif
+#else
+	#ifndef ENTER
+		#define ENTER 13
+	#endif
+#endif
 
 extern uint8_t flag_display_game;
 

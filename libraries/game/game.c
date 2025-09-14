@@ -18,8 +18,25 @@ static char old_icon = ' ';
 
 uint8_t flag_display_game = 0;
 
+static char clear[5];
+
+
 void game_init()
 {
+	memset(clear, 0, sizeof(clear));
+
+	#ifdef __linux__
+			clear[0] = 'c';
+			clear[1] = 'l';
+			clear[2] = 'e';
+			clear[3] = 'a';
+			clear[4] = 'r';
+ 		#elif defined(_WIN32)
+			clear[0] = 'c';
+			clear[1] = 'l';
+			clear[2] = 's';
+ 		#endif
+ 	
     memset(grid, ' ', sizeof(grid));
     grid[0][1] = '|';
     grid[0][3] = '|';
@@ -39,14 +56,14 @@ void game_init()
 
     printf("Player 1, insert your name (MAX 20 CHAR) ");
     scanf("%20s", player1_name);
-    system("clear");
+    system(clear);
     printf("Player 2, insert your name (MAX 20 CHAR) ");
     scanf("%20s", player2_name);
 
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {} //cleaning of input buffer
 
-    system("clear");
+    system(clear);
     char icon;
     if (turn % 2 == 0)
     {
@@ -86,7 +103,6 @@ void change_player_pointer(char key)
 {
     char icon;
     uint8_t player_matrix;
-    //char old_icon;
     uint8_t old_x, old_y;
     if (turn % 2 == 0)
     {
@@ -101,7 +117,6 @@ void change_player_pointer(char key)
     flag_display_game = 1;
     old_x = icon_position_x;
     old_y = icon_position_y;
-    //old_icon = ' ';
 
     switch (key)
 	{
@@ -120,7 +135,7 @@ void change_player_pointer(char key)
             if (icon_position_y == 4) icon_position_y--;
             icon_position_y = (icon_position_y + 2) % 5;
             break;
-		case 10:
+		case ENTER:
             if (old_icon == ' ')
             {
                 game_grid[icon_position_x][icon_position_y / 2] = player_matrix;
@@ -142,7 +157,7 @@ void change_player_pointer(char key)
         {
             grid[icon_position_x][icon_position_y] = icon;
         }
-        system("clear");
+        system(clear);
         display_grid();
         /*printf("x = %d, y = %d\n", icon_position_x, icon_position_y);
         printf("turn = %d\n", turn);
@@ -164,7 +179,7 @@ void turn_management()
     find_empty_cell();
     old_icon = ' ';
     grid[icon_position_x][icon_position_y] = icon;
-    system("clear");
+    system(clear);
     display_grid();
 }
 
