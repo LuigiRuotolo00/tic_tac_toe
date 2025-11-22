@@ -4,6 +4,10 @@ a simple Tic-tac-toe in C language
 ## About This Project
 This project was developed as a personal exercise during my high school years to practice C and game development fundamentals. It was one of my first attempts at learning core programming concepts.
 
+![Menu](images/Menu.png)
+
+![Menu](images/Game.png)
+
 ## Project Description
 This project is inspired by the classic Tic-tac-toe paper-and-pencil game in a text-based format using ASCII characters.
 
